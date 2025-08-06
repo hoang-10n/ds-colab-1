@@ -1,13 +1,11 @@
 package com.example;
-// File: SumServiceImpl.java
+
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
-public class CalculatorImpl extends UnicastRemoteObject implements CalculatorService {
-    
+public class CalculatorImpl extends UnicastRemoteObject implements Calculator {
     public CalculatorImpl() throws RemoteException {
         super();
-        //TODO Auto-generated constructor stub
     }
 
     @Override
