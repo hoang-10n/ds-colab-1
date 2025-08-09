@@ -8,9 +8,9 @@ public class CalculatorClient {
         try {
             Registry registry = LocateRegistry.getRegistry("localhost", 1099);
 
-            Calculator stub = (Calculator) registry.lookup("Calculator");
+            Calculator calculator = (Calculator) registry.lookup("Calculator");
 
-            int result = stub.sum(10, 20);
+            int result = calculator.sum(10, 20);
             System.out.println("Result: " + result);
         } catch (Exception e) {
             e.printStackTrace();

@@ -1,5 +1,4 @@
 com/example/Calculator.class
-CalculatorServer.class
+com/example/CalculatorServer.class
 com/example/CalculatorClient.class
-com/example/CalculatorService.class
 com/example/CalculatorImpl.class
