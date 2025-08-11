@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.List;
 
 public class CalculatorRMITest {
     @BeforeAll
@@ -56,5 +57,47 @@ public class CalculatorRMITest {
         Calculator calculator = (Calculator) registry.lookup("Calculator");
         Exception exception = assertThrows(ArithmeticException.class, () -> calculator.divide(10, 0));
         assertEquals("Division by zero is not allowed.", exception.getMessage());
+    }
+
+    @Test
+    public void testPushElement() throws Exception {
+        Registry registry = LocateRegistry.getRegistry("localhost", 1099);
+        Calculator calculator = (Calculator) registry.lookup("Calculator");
+        calculator.pushElement(5);
+        List<Integer> elements = calculator.getElements();
+        assertTrue(elements.contains(5));
+
+        calculator.clearElements(); // Manual clear
+    }
+
+    @Test
+    public void testPopElement() throws Exception {
+        Registry registry = LocateRegistry.getRegistry("localhost", 1099);
+        Calculator calculator = (Calculator) registry.lookup("Calculator");
+        calculator.pushElement(10);
+        calculator.pushElement(20);
+        System.out.println("Elements: " + calculator.getElements());
+        int a = calculator.popElement();
+        List<Integer> elements = calculator.getElements();
+        System.out.println("Elements: " + calculator.getElements());
+        assertFalse(elements.contains(10));
+        assertTrue(elements.contains(20));
+        assertTrue(a == 10);
+
+        calculator.clearElements(); // Manual clear
+    }
+
+    @Test
+    public void testClearElements() throws Exception {
+        Registry registry = LocateRegistry.getRegistry("localhost", 1099);
+        Calculator calculator = (Calculator) registry.lookup("Calculator");
+        calculator.pushElement(5);
+        calculator.pushElement(10);
+        List<Integer> elements = calculator.getElements();
+        assertTrue(elements.contains(5));
+        assertTrue(elements.contains(10));
+        calculator.clearElements();
+        elements = calculator.getElements();
+        assertTrue(elements.isEmpty());
     }
 }

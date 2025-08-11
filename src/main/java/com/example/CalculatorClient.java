@@ -12,6 +12,17 @@ public class CalculatorClient {
             System.out.println("Subtract: " + calculator.subtract(5, 3));
             System.out.println("Multiply: " + calculator.multiply(5, 3));
             System.out.println("Divide: " + calculator.divide(5, 3));
+
+            calculator.pushElement(1);
+            calculator.pushElement(2);
+            calculator.pushElement(3);
+
+            System.out.println("Calculator after pushing elements: " + calculator.getElements());
+
+            int a = calculator.popElement();
+
+            System.out.println("Calculate after popping one element: " + calculator.getElements());
+            System.out.println("The remove element is: " + a);
         } catch (Exception e) {
             e.printStackTrace();
         }

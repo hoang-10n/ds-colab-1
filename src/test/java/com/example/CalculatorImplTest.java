@@ -3,8 +3,10 @@ package com.example;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class CalculatorImplTest {
+import java.rmi.RemoteException;
+import java.util.List;
 
+public class CalculatorImplTest {
     @Test
     public void testSum() throws Exception {
         CalculatorImpl calculator = new CalculatorImpl();
@@ -42,5 +44,39 @@ public class CalculatorImplTest {
         CalculatorImpl calculator = new CalculatorImpl();
         Exception exception = assertThrows(ArithmeticException.class, () -> calculator.divide(10, 0));
         assertEquals("Division by zero is not allowed.", exception.getMessage());
+    }
+
+    @Test
+    public void testPushElement() throws RemoteException {
+        CalculatorImpl calculator = new CalculatorImpl();
+        calculator.pushElement(5);
+        List<Integer> elements = calculator.getElements();
+        assertTrue(elements.contains(5));
+    }
+
+    @Test
+    public void testPopElement() throws RemoteException {
+        CalculatorImpl calculator = new CalculatorImpl();
+        calculator.pushElement(10);
+        calculator.pushElement(20);
+        int a = calculator.popElement();
+        List<Integer> elements = calculator.getElements();
+        assertFalse(elements.contains(10));
+        assertTrue(elements.contains(20));
+        assertTrue(a == 10);
+    }
+
+    @Test
+    public void testClearElements() throws RemoteException {
+        CalculatorImpl calculator = new CalculatorImpl();
+        calculator.pushElement(5);
+        calculator.pushElement(10);
+        List<Integer> elements = calculator.getElements();
+        assertTrue(elements.contains(5));
+        assertTrue(elements.contains(10));
+        calculator.clearElements();
+        elements = calculator.getElements();
+        assertTrue(elements.isEmpty());
+
     }
 }
